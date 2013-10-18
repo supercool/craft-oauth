@@ -228,7 +228,9 @@ abstract class BaseOAuthProviderSource {
 
         $class = "\\OAuth\\Provider\\{$this->getClass()}";
 
-        $this->_providerSource = new $class($opts);
+        $oauth = new \OAuth\Provider($this->getClass(), $opts);
+
+        $this->_providerSource = $oauth;
 
         if($token) {
             $this->_providerSource->setToken($token);
