@@ -7,8 +7,6 @@
 
 namespace Craft;
 
-require_once(CRAFT_PLUGINS_PATH.'oauth/Info.php');
-
 class OauthPlugin extends BasePlugin
 {
     // Public Methods
@@ -45,7 +43,7 @@ class OauthPlugin extends BasePlugin
      */
     function getVersion()
     {
-        return OAUTH_VERSION;
+        return '0.9.72';
     }
 
     /**
