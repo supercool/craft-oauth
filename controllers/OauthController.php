@@ -111,34 +111,34 @@ class OauthController extends BaseController
 
                 case 1:
 
-                    if (isset($_GET['user']))
-                    {
-                        if ( ! isset($_SESSION['token_credentials']))
-                        {
-                            throw new Exception("Token credentials not provided");
-                        }
+                    $user = craft()->request->getParam('user');
+                    $oauth_token = craft()->request->getParam('oauth_token');
+                    $oauth_verifier = craft()->request->getParam('oauth_verifier');
+                    $denied = craft()->request->getParam('denied');
 
-                        $token = unserialize($_SESSION['token_credentials']);
+                    if ($oauth_token && $oauth_verifier)
+                    {
+
+                        $temporaryCredentials = unserialize(craft()->httpSession->get('temporary_credentials'));
+
+                        $token = $provider->getProvider()->getTokenCredentials($temporaryCredentials, $oauth_token, $oauth_verifier);
+
+                        craft()->httpSession->add('token_credentials', serialize($token));
                     }
-                    elseif (isset($_GET['oauth_token']) && isset($_GET['oauth_verifier']))
+                    elseif ($denied)
                     {
-                        $temporaryCredentials = unserialize($_SESSION['temporary_credentials']);
 
-                        $token = $provider->getProvider()->getTokenCredentials($temporaryCredentials, $_GET['oauth_token'], $_GET['oauth_verifier']);
-
-                        unset($_SESSION['temporary_credentials']);
-
-                        $_SESSION['token_credentials'] = serialize($token);
-                    }
-                    elseif (isset($_GET['denied']))
-                    {
                         throw new Exception("Client access denied by the user");
                     }
                     else
                     {
+
                         $temporaryCredentials = $provider->getProvider()->getTemporaryCredentials();
-                        $_SESSION['temporary_credentials'] = serialize($temporaryCredentials);
-                        $provider->getProvider()->authorize($temporaryCredentials);
+
+                        craft()->httpSession->add('temporary_credentials', serialize($temporaryCredentials));
+
+                        $authorizationUrl = $provider->getProvider()->getAuthorizationUrl($temporaryCredentials);
+                        craft()->request->redirect($authorizationUrl);
                     }
 
                 break;
