@@ -77,6 +77,17 @@
             warning: (infos and not infos.clientSecret is empty and configInfos.clientSecret is defined ? configWarning('oauth.'~provider.handle~'.clientSecret')),
         }) }}
 
+        {% if provider.handle == 'vend' %}
+          {{ forms.textField({
+              label: 'Domain Prefix'|t,
+              required: true,
+              name: 'provider[domainPrefix]',
+              value: infos ? infos.domainPrefix : null,
+              errors: infos ? infos.errors('domainPrefix') : null,
+              warning: (infos and not infos.domainPrefix is empty and configInfos.domainPrefix is defined ? configWarning('oauth.'~provider.handle~'.domainPrefix')),
+          }) }}
+        {% endif %}
+
         <div class="buttons">
             <input class="btn submit" type="submit" value="{{ 'Save'|t }}">
         </div>

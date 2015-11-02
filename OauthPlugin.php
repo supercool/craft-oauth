@@ -27,6 +27,7 @@ class OauthPlugin extends BasePlugin
             'Dukt\OAuth\Providers\Linkedin',
             'Dukt\OAuth\Providers\Slack',
             'Dukt\OAuth\Providers\Twitter',
+            'Dukt\OAuth\Providers\Vend',
             'Dukt\OAuth\Providers\Vimeo'
         ];
     }

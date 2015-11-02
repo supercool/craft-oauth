@@ -28,7 +28,8 @@ class Oauth_ProviderInfosRecord extends BaseRecord
         return array(
             'class' => array(AttributeType::String, 'required' => true),
             'clientId' => array(AttributeType::String, 'required' => false),
-            'clientSecret' => array(AttributeType::String, 'required' => false)
+            'clientSecret' => array(AttributeType::String, 'required' => false),
+            'domainPrefix' => array(AttributeType::String, 'required' => false)
         );
     }
 

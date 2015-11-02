@@ -50,11 +50,12 @@ class Oauth_ProviderInfosModel extends BaseModel
     protected function defineAttributes()
     {
         $attributes = array(
-                'id'    => AttributeType::Number,
-                'class' => array(AttributeType::String, 'required' => true),
-                'clientId' => array(AttributeType::String, 'required' => false),
-                'clientSecret' => array(AttributeType::String, 'required' => false),
-            );
+          'id'    => AttributeType::Number,
+          'class' => array(AttributeType::String, 'required' => true),
+          'clientId' => array(AttributeType::String, 'required' => false),
+          'clientSecret' => array(AttributeType::String, 'required' => false),
+          'domainPrefix' => array(AttributeType::String, 'required' => false),
+        );
 
         return $attributes;
     }

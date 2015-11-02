@@ -229,6 +229,7 @@ class OauthService extends BaseApplicationComponent
         $record->class = $model->class;
         $record->clientId = $model->clientId;
         $record->clientSecret = $model->clientSecret;
+        $record->domainPrefix = $model->domainPrefix;
 
         return $record->save(false);
     }
